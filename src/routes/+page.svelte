@@ -89,7 +89,7 @@
         <span
           class="hidden border-l border-amber-900/15 pl-3 font-mono text-xs text-slate-500 sm:inline-block"
         >
-          Adaptive High School Probability Tutor
+          Progressive High School Probability Tutor
         </span>
       </div>
 
