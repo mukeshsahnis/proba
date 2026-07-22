@@ -5,7 +5,7 @@
 ### Interactive & Adaptive High-School Probability Tutor
 
 <p align="center">
-  <img src="static/images/preview.jpg" alt="PROBA Web Application Preview" width="850" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
+  <img src="static/images/preview.png" alt="PROBA Web Application Preview" width="850" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" />
 </p>
 
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2.0-ff3e00?style=for-the-badge&logo=svelte&logoColor=white)](https://kit.svelte.dev)
