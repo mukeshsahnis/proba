@@ -1,0 +1,36 @@
+node_modules
+
+# Output & Build
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS & Environment
+.DS_Store
+Thumbs.db
+*.local
+.env
+.env.*
+!.env.example
+!.env.test
+
+# IDE & Editor files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Agent local scratch/logs
+.claude/
+CLAUDE.md
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
