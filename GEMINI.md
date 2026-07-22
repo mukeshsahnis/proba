@@ -49,19 +49,19 @@ import { apiPost, apiGet } from '$lib/utils/fetch-utils.js';
 import { logApiCall, logApiSuccess, logApiError } from '$lib/debug-toast.svelte.js';
 
 export async function doThing({ text, file }) {
-	const start = Date.now();
-	logApiCall('Do thing');
-	try {
-		const data = new FormData();
-		if (file) data.set('file', file);
-		else data.set('text', text ?? '');
-		const result = await apiPost('/api/do-thing', data); // apiPost sends FormData as-is
-		logApiSuccess('Do thing', Date.now() - start);
-		return result;
-	} catch (err) {
-		logApiError('Do thing', err);
-		throw err;
-	}
+  const start = Date.now();
+  logApiCall('Do thing');
+  try {
+    const data = new FormData();
+    if (file) data.set('file', file);
+    else data.set('text', text ?? '');
+    const result = await apiPost('/api/do-thing', data); // apiPost sends FormData as-is
+    logApiSuccess('Do thing', Date.now() - start);
+    return result;
+  } catch (err) {
+    logApiError('Do thing', err);
+    throw err;
+  }
 }
 ```
 
@@ -85,16 +85,16 @@ const logger = createLogger('Category/Endpoint');
 const requestSchema = z.object({ field: z.string().min(1) });
 
 export async function POST({ request }) {
-	try {
-		const data = await request.json();
-		const validation = requestSchema.safeParse(data);
-		if (!validation.success) return validationError(validation.error);
-		const result = await doWork(validation.data.field);
-		return apiSuccess({ result });
-	} catch (err) {
-		logger.error('Failed', err?.message || err);
-		return apiError(err?.message || 'Internal error', err?.status || 500);
-	}
+  try {
+    const data = await request.json();
+    const validation = requestSchema.safeParse(data);
+    if (!validation.success) return validationError(validation.error);
+    const result = await doWork(validation.data.field);
+    return apiSuccess({ result });
+  } catch (err) {
+    logger.error('Failed', err?.message || err);
+    return apiError(err?.message || 'Internal error', err?.status || 500);
+  }
 }
 ```
 

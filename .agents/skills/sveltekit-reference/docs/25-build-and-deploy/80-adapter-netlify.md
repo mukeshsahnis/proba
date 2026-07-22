@@ -16,19 +16,19 @@ import adapter from '@sveltejs/adapter-netlify';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		// default options are shown
-		adapter: adapter({
-			// if true, will create a Netlify Edge Function rather
-			// than using standard Node-based functions
-			edge: false,
+  kit: {
+    // default options are shown
+    adapter: adapter({
+      // if true, will create a Netlify Edge Function rather
+      // than using standard Node-based functions
+      edge: false,
 
-			// if true, will split your app into multiple functions
-			// instead of creating a single one for the entire app.
-			// if `edge` is true, this option cannot be used
-			split: false
-		})
-	}
+      // if true, will split your app into multiple functions
+      // instead of creating a single one for the entire app.
+      // if `edge` is true, this option cannot be used
+      split: false
+    })
+  }
 };
 
 export default config;
@@ -58,13 +58,13 @@ import adapter from '@sveltejs/adapter-netlify';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			// will create a Netlify Edge Function using Deno-based
-			// rather than using standard Node-based functions
-			edge: true
-		})
-	}
+  kit: {
+    adapter: adapter({
+      // will create a Netlify Edge Function using Deno-based
+      // rather than using standard Node-based functions
+      edge: true
+    })
+  }
 };
 
 export default config;
@@ -104,8 +104,8 @@ With this adapter, SvelteKit endpoints are hosted as [Netlify Functions](https:/
 /// file: +page.server.js
 /** @type {import('./$types').PageServerLoad} */
 export const load = async (event) => {
-	const context = event.platform?.context;
-	console.log(context); // shows up in your functions log in the Netlify app
+  const context = event.platform?.context;
+  console.log(context); // shows up in your functions log in the Netlify app
 };
 ```
 

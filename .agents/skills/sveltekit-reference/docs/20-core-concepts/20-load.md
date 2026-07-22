@@ -12,20 +12,20 @@ A `+page.svelte` file can have a sibling `+page.js` that exports a `load` functi
 /// file: src/routes/blog/[slug]/+page.js
 /** @type {import('./$types').PageLoad} */
 export function load({ params }) {
-	return {
-		post: {
-			title: `Title for ${params.slug} goes here`,
-			content: `Content for ${params.slug} goes here`
-		}
-	};
+  return {
+    post: {
+      title: `Title for ${params.slug} goes here`,
+      content: `Content for ${params.slug} goes here`
+    }
+  };
 }
 ```
 
 ```svelte
 <!--- file: src/routes/blog/[slug]/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 </script>
 
 <h1>{data.post.title}</h1><div>{@html data.post.content}</div>
@@ -95,26 +95,26 @@ export async function load() {
 ```svelte
 <!--- file: src/routes/blog/[slug]/+layout.svelte --->
 <script>
-	/** @type {import('./$types').LayoutProps} */
-	let { data, children } = $props();
+  /** @type {import('./$types').LayoutProps} */
+  let { data, children } = $props();
 </script>
 
 <main>
-	<!-- +page.svelte is `@render`ed here -->
-	{@render children()}
+  <!-- +page.svelte is `@render`ed here -->
+  {@render children()}
 </main>
 
 <aside>
-	<h2>More posts</h2>
-	<ul>
-		{#each data.posts as post}
-			<li>
-				<a href="/blog/{post.slug}">
-					{post.title}
-				</a>
-			</li>
-		{/each}
-	</ul>
+  <h2>More posts</h2>
+  <ul>
+    {#each data.posts as post}
+      <li>
+        <a href="/blog/{post.slug}">
+          {post.title}
+        </a>
+      </li>
+    {/each}
+  </ul>
 </aside>
 ```
 
@@ -147,7 +147,7 @@ Data returned from layout `load` functions is available to child `+layout.svelte
 <div>{@html data.post.content}</div>
 
 +++{#if next}
-	<p>Next post: <a href="/blog/{next.slug}">{next.title}</a></p>
+  <p>Next post: <a href="/blog/{next.slug}">{next.title}</a></p>
 {/if}+++
 ```
 
@@ -162,11 +162,11 @@ In some cases, we might need the opposite — a parent layout might need to acce
 ```svelte
 <!--- file: src/routes/+layout.svelte --->
 <script>
-	import { page } from '$app/state';
+  import { page } from '$app/state';
 </script>
 
 <svelte:head>
-	<title>{page.data.title}</title>
+  <title>{page.data.title}</title>
 </svelte:head>
 ```
 
@@ -221,9 +221,9 @@ In rare cases, you might need to use both together — for example, you might ne
 /// file: src/routes/+page.server.js
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-	return {
-		serverMessage: 'hello from server load function'
-	};
+  return {
+    serverMessage: 'hello from server load function'
+  };
 }
 ```
 
@@ -232,10 +232,10 @@ export async function load() {
 // @errors: 18047
 /** @type {import('./$types').PageLoad} */
 export async function load({ data }) {
-	return {
-		serverMessage: data.serverMessage,
-		universalMessage: 'hello from universal load function'
-	};
+  return {
+    serverMessage: data.serverMessage,
+    universalMessage: 'hello from universal load function'
+  };
 }
 ```
 
@@ -257,7 +257,7 @@ Contains the name of the current route directory, relative to `src/routes`:
 /// file: src/routes/a/[b]/[...c]/+page.js
 /** @type {import('./$types').PageLoad} */
 export function load({ route }) {
-	console.log(route.id); // '/a/[b]/[...c]'
+  console.log(route.id); // '/a/[b]/[...c]'
 }
 ```
 
@@ -269,8 +269,8 @@ Given a `route.id` of `/a/[b]/[...c]` and a `url.pathname` of `/a/x/y/z`, the `p
 
 ```json
 {
-	"b": "x",
-	"c": "y/z"
+  "b": "x",
+  "c": "y/z"
 }
 ```
 
@@ -288,10 +288,10 @@ To get data from an external API or a `+server.js` handler, you can use the prov
 /// file: src/routes/items/[id]/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-	const res = await fetch(`/api/items/${params.id}`);
-	const item = await res.json();
+  const res = await fetch(`/api/items/${params.id}`);
+  const item = await res.json();
 
-	return { item };
+  return { item };
 }
 ```
 
@@ -340,17 +340,17 @@ Both server and universal `load` functions have access to a `setHeaders` functio
 /// file: src/routes/products/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, setHeaders }) {
-	const url = `https://cms.example.com/products.json`;
-	const response = await fetch(url);
+  const url = `https://cms.example.com/products.json`;
+  const response = await fetch(url);
 
-	// Headers are only set during SSR, caching the page's HTML
-	// for the same length of time as the underlying data.
-	setHeaders({
-		age: response.headers.get('age'),
-		'cache-control': response.headers.get('cache-control')
-	});
+  // Headers are only set during SSR, caching the page's HTML
+  // for the same length of time as the underlying data.
+  setHeaders({
+    age: response.headers.get('age'),
+    'cache-control': response.headers.get('cache-control')
+  });
 
-	return response.json();
+  return response.json();
 }
 ```
 
@@ -364,7 +364,7 @@ Occasionally it's useful for a `load` function to access data from a parent `loa
 /// file: src/routes/+layout.js
 /** @type {import('./$types').LayoutLoad} */
 export function load() {
-	return { a: 1 };
+  return { a: 1 };
 }
 ```
 
@@ -372,8 +372,8 @@ export function load() {
 /// file: src/routes/abc/+layout.js
 /** @type {import('./$types').LayoutLoad} */
 export async function load({ parent }) {
-	const { a } = await parent();
-	return { b: a + 1 };
+  const { a } = await parent();
+  return { b: a + 1 };
 }
 ```
 
@@ -381,16 +381,16 @@ export async function load({ parent }) {
 /// file: src/routes/abc/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ parent }) {
-	const { a, b } = await parent();
-	return { c: a + b };
+  const { a, b } = await parent();
+  return { c: a + b };
 }
 ```
 
 ```svelte
 <!--- file: src/routes/abc/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 </script>
 
 <!-- renders `1 + 2 = 3` --><p>{data.a} + {data.b} = {data.c}</p>
@@ -527,21 +527,21 @@ This is useful for creating skeleton loading states, for example:
 ```svelte
 <!--- file: src/routes/blog/[slug]/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 </script>
 
 <h1>{data.post.title}</h1>
 <div>{@html data.post.content}</div>
 
 {#await data.comments}
-	Loading comments...
+  Loading comments...
 {:then comments}
-	{#each comments as comment}
-		<p>{comment.content}</p>
-	{/each}
+  {#each comments as comment}
+    <p>{comment.content}</p>
+  {/each}
 {:catch error}
-	<p>error loading comments: {error.message}</p>
+  <p>error loading comments: {error.message}</p>
 {/await}
 ```
 
@@ -551,14 +551,14 @@ When streaming data, be careful to handle promise rejections correctly. More spe
 /// file: src/routes/+page.server.js
 /** @type {import('./$types').PageServerLoad} */
 export function load({ fetch }) {
-	const ok_manual = Promise.reject();
-	ok_manual.catch(() => {});
+  const ok_manual = Promise.reject();
+  ok_manual.catch(() => {});
 
-	return {
-		ok_manual,
-		ok_fetch: fetch('/fetch/that/could/fail'),
-		dangerous_unhandled: Promise.reject()
-	};
+  return {
+    ok_manual,
+    ok_fetch: fetch('/fetch/that/could/fail'),
+    dangerous_unhandled: Promise.reject()
+  };
 }
 ```
 
@@ -634,10 +634,10 @@ In rare cases, you may wish to exclude something from the dependency tracking me
 /// file: src/routes/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ untrack, url }) {
-	// Untrack url.pathname so that path changes don't trigger a rerun
-	if (untrack(() => url.pathname === '/')) {
-		return { message: 'Welcome!' };
-	}
+  // Untrack url.pathname so that path changes don't trigger a rerun
+  if (untrack(() => url.pathname === '/')) {
+    return { message: 'Welcome!' };
+  }
 }
 ```
 
@@ -651,33 +651,33 @@ A `load` function depends on `url` if it calls `fetch(url)` or `depends(url)`. N
 /// file: src/routes/random-number/+page.js
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, depends }) {
-	// load reruns when `invalidate('https://api.example.com/random-number')` is called...
-	const response = await fetch('https://api.example.com/random-number');
+  // load reruns when `invalidate('https://api.example.com/random-number')` is called...
+  const response = await fetch('https://api.example.com/random-number');
 
-	// ...or when `invalidate('app:random')` is called
-	depends('app:random');
+  // ...or when `invalidate('app:random')` is called
+  depends('app:random');
 
-	return {
-		number: await response.json()
-	};
+  return {
+    number: await response.json()
+  };
 }
 ```
 
 ```svelte
 <!--- file: src/routes/random-number/+page.svelte --->
 <script>
-	import { invalidate, invalidateAll } from '$app/navigation';
+  import { invalidate, invalidateAll } from '$app/navigation';
 
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 
-	function rerunLoadFunction() {
-		// any of these will cause the `load` function to rerun
-		invalidate('app:random');
-		invalidate('https://api.example.com/random-number');
-		invalidate((url) => url.href.includes('random-number'));
-		invalidateAll();
-	}
+  function rerunLoadFunction() {
+    // any of these will cause the `load` function to rerun
+    invalidate('app:random');
+    invalidate('https://api.example.com/random-number');
+    invalidate((url) => url.href.includes('random-number'));
+    invalidateAll();
+  }
 </script>
 
 <p>random number: {data.number}</p>

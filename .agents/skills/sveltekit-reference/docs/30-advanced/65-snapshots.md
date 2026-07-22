@@ -11,19 +11,19 @@ To do this, export a `snapshot` object with `capture` and `restore` methods from
 ```svelte
 <!--- file: +page.svelte --->
 <script>
-	let comment = $state('');
+  let comment = $state('');
 
-	/** @type {import('./$types').Snapshot<string>} */
-	export const snapshot = {
-		capture: () => comment,
-		restore: (value) => (comment = value)
-	};
+  /** @type {import('./$types').Snapshot<string>} */
+  export const snapshot = {
+    capture: () => comment,
+    restore: (value) => (comment = value)
+  };
 </script>
 
 <form method="POST">
-	<label for="comment">Comment</label>
-	<textarea id="comment" bind:value={comment} />
-	<button>Post comment</button>
+  <label for="comment">Comment</label>
+  <textarea id="comment" bind:value={comment} />
+  <button>Post comment</button>
 </form>
 ```
 

@@ -44,14 +44,14 @@ While SvelteKit does not have any specific integration with [view transitions](h
 import { onNavigate } from '$app/navigation';
 
 onNavigate((navigation) => {
-	if (!document.startViewTransition) return;
+  if (!document.startViewTransition) return;
 
-	return new Promise((resolve) => {
-		document.startViewTransition(async () => {
-			resolve();
-			await navigation.complete;
-		});
-	});
+  return new Promise((resolve) => {
+    document.startViewTransition(async () => {
+      resolve();
+      await navigation.complete;
+    });
+  });
 });
 ```
 
@@ -73,7 +73,7 @@ If you need access to the `document` or `window` variables or otherwise need cod
 import { browser } from '$app/environment';
 
 if (browser) {
-	// client-only code here
+  // client-only code here
 }
 ```
 
@@ -116,19 +116,19 @@ Finally, you may also consider using an `{#await}` block:
 ```svelte
 <!--- file: index.svelte --->
 <script>
-	import { browser } from '$app/environment';
+  import { browser } from '$app/environment';
 
-	const ComponentConstructor = browser
-		? import('some-browser-only-library').then((module) => module.Component)
-		: new Promise(() => {});
+  const ComponentConstructor = browser
+    ? import('some-browser-only-library').then((module) => module.Component)
+    : new Promise(() => {});
 </script>
 
 {#await ComponentConstructor}
-	<p>Loading...</p>
+  <p>Loading...</p>
 {:then component}
-	<svelte:component this={component} />
+  <svelte:component this={component} />
 {:catch error}
-	<p>Something went wrong: {error.message}</p>
+  <p>Something went wrong: {error.message}</p>
 {/await}
 ```
 
@@ -144,7 +144,7 @@ How to setup rewrites in production will depend on your deployment platform. If 
 /// file: src/routes/api/[...path]/+server.js
 /** @type {import('./$types').RequestHandler} */
 export function GET({ params, url }) {
-	return fetch(`https://example.com/${params.path + url.search}`);
+  return fetch(`https://example.com/${params.path + url.search}`);
 }
 ```
 

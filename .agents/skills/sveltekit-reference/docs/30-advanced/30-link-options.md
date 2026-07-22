@@ -23,7 +23,7 @@ The default project template has a `data-sveltekit-preload-data="hover"` attribu
 
 ```html
 <body data-sveltekit-preload-data="hover">
-	<div style="display: contents">%sveltekit.body%</div>
+  <div style="display: contents">%sveltekit.body%</div>
 </body>
 ```
 
@@ -82,7 +82,7 @@ Sometimes you don't want [focus to be reset](accessibility#Focus-management) aft
 
 ```html
 <form data-sveltekit-keepfocus>
-	<input type="text" name="query" />
+  <input type="text" name="query" />
 </form>
 ```
 
@@ -106,17 +106,17 @@ To disable any of these options inside an element where they have been enabled, 
 
 ```html
 <div data-sveltekit-preload-data>
-	<!-- these links will be preloaded -->
-	<a href="/a">a</a>
-	<a href="/b">b</a>
-	<a href="/c">c</a>
+  <!-- these links will be preloaded -->
+  <a href="/a">a</a>
+  <a href="/b">b</a>
+  <a href="/c">c</a>
 
-	<div data-sveltekit-preload-data="false">
-		<!-- these links will NOT be preloaded -->
-		<a href="/d">d</a>
-		<a href="/e">e</a>
-		<a href="/f">f</a>
-	</div>
+  <div data-sveltekit-preload-data="false">
+    <!-- these links will NOT be preloaded -->
+    <a href="/d">d</a>
+    <a href="/e">e</a>
+    <a href="/f">f</a>
+  </div>
 </div>
 ```
 

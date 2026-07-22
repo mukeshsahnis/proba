@@ -67,6 +67,7 @@ Svelte's curly-brace interpolation collides with LaTeX's brace-heavy syntax the 
 ```
 
 **SvelteKit SSR note:** MathJax's browser components assume `window`/`document` exist. Either:
+
 - Load the CDN `<script>` tag only in `app.html` (runs client-side regardless), and gate all `MathJax.*` calls behind `browser` from `$app/environment`, or
 - Do the typesetting server-side during `load()` using the Node-native approach in `node-ssr.md`, and ship pre-rendered SVG/MathML as static markup (no client JS needed at all — often the better choice for a content-heavy SvelteKit site, since it avoids layout shift entirely).
 
@@ -84,6 +85,7 @@ Svelte's curly-brace interpolation collides with LaTeX's brace-heavy syntax the 
 ```
 
 **Vite bundling caveat:** if MathJax is bundled through Vite (e.g., in a Figma/FigJam plugin built with `vite-plugin-singlefile`), the component loader's dynamic `import()`/`require()` calls for on-demand extensions can be broken by the single-file bundling process, since MathJax expects to fetch additional files at runtime. For single-file plugin bundles, prefer:
+
 - Pre-selecting every TeX package/extension you need at build time (avoid `\require` and autoloading in the document — see `configuration.md` for the explicit `load` list), so nothing needs to be fetched dynamically after the bundle is inlined, or
 - Doing the LaTeX → SVG conversion in a Node-side build step (`node-ssr.md`) and embedding the resulting static SVG strings directly into the plugin's UI, sidestepping the in-browser MathJax runtime entirely — usually the more robust option for a single-file, no-network-fetch plugin context.
 
@@ -96,7 +98,7 @@ Same braces caveat as React/Svelte (Vue templates also use `{{ }}` interpolation
 Every time math content changes reactively (new message, tab switch, route change), call:
 
 ```javascript
-window.MathJax.typesetClear([el]);       // clear MathJax's internal state for that node first
+window.MathJax.typesetClear([el]); // clear MathJax's internal state for that node first
 await window.MathJax.typesetPromise([el]); // then retypeset
 ```
 

@@ -22,22 +22,22 @@ import adapter from '@sveltejs/adapter-cloudflare';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			// See below for an explanation of these options
-			config: undefined,
-			platformProxy: {
-				configPath: undefined,
-				environment: undefined,
-				persist: undefined
-			},
-			fallback: 'plaintext',
-			routes: {
-				include: ['/*'],
-				exclude: ['<all>']
-			}
-		})
-	}
+  kit: {
+    adapter: adapter({
+      // See below for an explanation of these options
+      config: undefined,
+      platformProxy: {
+        configPath: undefined,
+        environment: undefined,
+        persist: undefined
+      },
+      fallback: 'plaintext',
+      routes: {
+        include: ['/*'],
+        exclude: ['<all>']
+      }
+    })
+  }
 };
 
 export default config;
@@ -89,13 +89,13 @@ When building for Cloudflare Workers, this adapter expects to find a [Wrangler c
 ```jsonc
 /// file: wrangler.jsonc
 {
-	"name": "<any-name-you-want>",
-	"main": ".svelte-kit/cloudflare/_worker.js",
-	"compatibility_date": "2025-01-01",
-	"assets": {
-		"binding": "ASSETS",
-		"directory": ".svelte-kit/cloudflare"
-	}
+  "name": "<any-name-you-want>",
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".svelte-kit/cloudflare"
+  }
 }
 ```
 
@@ -193,7 +193,7 @@ If you would like to enable [Node.js compatibility](https://developers.cloudflar
 ```jsonc
 /// file: wrangler.jsonc
 {
-	"compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"]
 }
 ```
 

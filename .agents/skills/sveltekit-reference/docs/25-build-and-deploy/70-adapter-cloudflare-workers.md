@@ -17,11 +17,11 @@ import adapter from '@sveltejs/adapter-cloudflare-workers';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			// see below for options that can be set here
-		})
-	}
+  kit: {
+    adapter: adapter({
+      // see below for options that can be set here
+    })
+  }
 };
 
 export default config;
@@ -44,16 +44,16 @@ This adapter expects to find a [Wrangler configuration file](https://developers.
 ```jsonc
 /// file: wrangler.jsonc
 {
-	"name": "<your-service-name>",
-	"account_id": "<your-account-id>",
-	"main": "./.cloudflare/worker.js",
-	"site": {
-		"bucket": "./.cloudflare/public"
-	},
-	"build": {
-		"command": "npm run build"
-	},
-	"compatibility_date": "2021-11-12"
+  "name": "<your-service-name>",
+  "account_id": "<your-account-id>",
+  "main": "./.cloudflare/worker.js",
+  "site": {
+    "bucket": "./.cloudflare/public"
+  },
+  "build": {
+    "command": "npm run build"
+  },
+  "compatibility_date": "2021-11-12"
 }
 ```
 
@@ -142,7 +142,7 @@ If you would like to enable [Node.js compatibility](https://developers.cloudflar
 ```jsonc
 /// file: wrangler.jsonc
 {
-	"compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"]
 }
 ```
 

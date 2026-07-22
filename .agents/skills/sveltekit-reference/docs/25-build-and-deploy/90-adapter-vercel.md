@@ -16,11 +16,11 @@ import adapter from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			// see below for options that can be set here
-		})
-	}
+  kit: {
+    adapter: adapter({
+      // see below for options that can be set here
+    })
+  }
 };
 
 export default config;
@@ -36,7 +36,7 @@ For example you could deploy one specific route as an individual serverless func
 /// file: about/+page.js
 /** @type {import('@sveltejs/adapter-vercel').Config} */
 export const config = {
-	split: true
+  split: true
 };
 ```
 
@@ -71,16 +71,16 @@ import adapter from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			images: {
-				sizes: [640, 828, 1200, 1920, 3840],
-				formats: ['image/avif', 'image/webp'],
-				minimumCacheTTL: 300,
-				domains: ['example-app.vercel.app']
-			}
-		})
-	}
+  kit: {
+    adapter: adapter({
+      images: {
+        sizes: [640, 828, 1200, 1920, 3840],
+        formats: ['image/avif', 'image/webp'],
+        minimumCacheTTL: 300,
+        domains: ['example-app.vercel.app']
+      }
+    })
+  }
 };
 
 export default config;
@@ -99,11 +99,11 @@ import { BYPASS_TOKEN } from '$env/static/private';
 
 /** @type {import('@sveltejs/adapter-vercel').Config} */
 export const config = {
-	isr: {
-		expiration: 60,
-		bypassToken: BYPASS_TOKEN,
-		allowQuery: ['search']
-	}
+  isr: {
+    expiration: 60,
+    bypassToken: BYPASS_TOKEN,
+    allowQuery: ['search']
+  }
 };
 ```
 
@@ -151,17 +151,17 @@ import { VERCEL_COMMIT_REF } from '$env/static/private';
 
 /** @type {import('./$types').LayoutServerLoad} */
 export function load() {
-	return {
-		deploymentGitBranch: VERCEL_COMMIT_REF
-	};
+  return {
+    deploymentGitBranch: VERCEL_COMMIT_REF
+  };
 }
 ```
 
 ```svelte
 <!--- file: +layout.svelte --->
 <script>
-	/** @type {import('./$types').LayoutProps} */
-	let { data } = $props();
+  /** @type {import('./$types').LayoutProps} */
+  let { data } = $props();
 </script>
 
 <p>This staging environment was deployed from {data.deploymentGitBranch}.</p>

@@ -25,7 +25,7 @@ This is the name of your package. It will be available for others to install usi
 
 ```json
 {
-	"name": "your-library"
+  "name": "your-library"
 }
 ```
 
@@ -37,7 +37,7 @@ Every package should have a license field so people know how they are allowed to
 
 ```json
 {
-	"license": "MIT"
+  "license": "MIT"
 }
 ```
 
@@ -49,7 +49,7 @@ This tells npm which files it will pack up and upload to npm. It should contain 
 
 ```json
 {
-	"files": ["dist"]
+  "files": ["dist"]
 }
 ```
 
@@ -63,12 +63,12 @@ The `"exports"` field contains the package's entry points. If you set up a new l
 
 ```json
 {
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		}
-	}
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
+  }
 }
 ```
 
@@ -90,12 +90,12 @@ You can adjust `exports` to your liking and provide more entry points. For examp
 
 ```json
 {
-	"exports": {
-		"./Foo.svelte": {
-			"types": "./dist/Foo.svelte.d.ts",
-			"svelte": "./dist/Foo.svelte"
-		}
-	}
+  "exports": {
+    "./Foo.svelte": {
+      "types": "./dist/Foo.svelte.d.ts",
+      "svelte": "./dist/Foo.svelte"
+    }
+  }
 }
 ```
 
@@ -122,7 +122,7 @@ This is a legacy field that enabled tooling to recognise Svelte component librar
 
 ```json
 {
-	"svelte": "./dist/index.js"
+  "svelte": "./dist/index.js"
 }
 ```
 
@@ -135,7 +135,7 @@ Setting the `sideEffects` field in `package.json` can help the bundler to be mor
 ```json
 /// file: package.json
 {
-	"sideEffects": ["**/*.css"]
+  "sideEffects": ["**/*.css"]
 }
 ```
 
@@ -146,7 +146,7 @@ If your package has files with side effects, you can specify them in an array:
 ```json
 /// file: package.json
 {
-	"sideEffects": ["**/*.css", "./dist/sideEffectfulFile.js"]
+  "sideEffects": ["**/*.css", "./dist/sideEffectfulFile.js"]
 }
 ```
 
@@ -164,17 +164,17 @@ The second option is to (ab)use the `typesVersions` feature from TypeScript to w
 
 ```json
 {
-	"exports": {
-		"./foo": {
-			"types": "./dist/foo.d.ts",
-			"svelte": "./dist/foo.js"
-		}
-	},
-	"typesVersions": {
-		">4.0": {
-			"foo": ["./dist/foo.d.ts"]
-		}
-	}
+  "exports": {
+    "./foo": {
+      "types": "./dist/foo.d.ts",
+      "svelte": "./dist/foo.js"
+    }
+  },
+  "typesVersions": {
+    ">4.0": {
+      "foo": ["./dist/foo.d.ts"]
+    }
+  }
 }
 ```
 

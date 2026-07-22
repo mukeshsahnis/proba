@@ -35,20 +35,20 @@ import { json } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export function GET({ request }) {
-	// log all headers
-	console.log(...request.headers);
+  // log all headers
+  console.log(...request.headers);
 
-	// create a JSON Response using a header we received
-	return json(
-		{
-			// retrieve a specific header
-			userAgent: request.headers.get('user-agent')
-		},
-		{
-			// set a header on the response
-			headers: { 'x-custom-header': 'potato' }
-		}
-	);
+  // create a JSON Response using a header we received
+  return json(
+    {
+      // retrieve a specific header
+      userAgent: request.headers.get('user-agent')
+    },
+    {
+      // set a header on the response
+      headers: { 'x-custom-header': 'potato' }
+    }
+  );
 }
 ```
 
@@ -63,15 +63,15 @@ import { json } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST(event) {
-	const body = await event.request.formData();
+  const body = await event.request.formData();
 
-	// log all fields
-	console.log([...body]);
+  // log all fields
+  console.log([...body]);
 
-	return json({
-		// get a specific field's value
-		name: body.get('name') ?? 'world'
-	});
+  return json({
+    // get a specific field's value
+    name: body.get('name') ?? 'world'
+  });
 }
 ```
 

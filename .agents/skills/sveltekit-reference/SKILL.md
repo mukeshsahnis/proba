@@ -13,15 +13,15 @@ A local mirror of the official SvelteKit documentation tree, bundled for offline
 
 Mirrors the upstream SvelteKit docs section ordering:
 
-| Folder | Covers |
-|---|---|
-| `10-getting-started/` | Introduction, project structure, web standards, `npx sv create` |
-| `20-core-concepts/` | Routing, `load`, form actions, page options, state management, **remote functions** (experimental, since 2.27) |
-| `25-build-and-deploy/` | Adapters (auto/node/static/vercel/netlify/cloudflare), SSR/prerender, env vars |
-| `30-advanced/` | Advanced routing, hooks, errors, link options, service workers, server-only modules, snapshots, shallow routing, packaging |
-| `40-best-practices/` | Auth, performance, images, accessibility, SEO |
-| `60-appendix/` | Migration notes, integrations, breakpoints, glossary |
-| `98-reference/` | Full API reference (`$app/*`, `$env/*`, `@sveltejs/kit`, CLI, config, types) |
+| Folder                 | Covers                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `10-getting-started/`  | Introduction, project structure, web standards, `npx sv create`                                                            |
+| `20-core-concepts/`    | Routing, `load`, form actions, page options, state management, **remote functions** (experimental, since 2.27)             |
+| `25-build-and-deploy/` | Adapters (auto/node/static/vercel/netlify/cloudflare), SSR/prerender, env vars                                             |
+| `30-advanced/`         | Advanced routing, hooks, errors, link options, service workers, server-only modules, snapshots, shallow routing, packaging |
+| `40-best-practices/`   | Auth, performance, images, accessibility, SEO                                                                              |
+| `60-appendix/`         | Migration notes, integrations, breakpoints, glossary                                                                       |
+| `98-reference/`        | Full API reference (`$app/*`, `$env/*`, `@sveltejs/kit`, CLI, config, types)                                               |
 
 ## How to use
 

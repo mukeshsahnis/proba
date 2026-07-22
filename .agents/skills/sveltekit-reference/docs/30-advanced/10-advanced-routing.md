@@ -57,7 +57,7 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export function load(event) {
-	error(404, 'Not Found');
+  error(404, 'Not Found');
 }
 ```
 
@@ -81,7 +81,7 @@ A route like `src/routes/fruits/[page]` would match `/fruits/apple`, but it woul
  * @satisfies {import('@sveltejs/kit').ParamMatcher}
  */
 export function match(param) {
-	return param === 'apple' || param === 'orange';
+  return param === 'apple' || param === 'orange';
 }
 ```
 
@@ -259,12 +259,12 @@ Not all use cases are suited for layout grouping, nor should you feel compelled 
 ```svelte
 <!--- file: src/routes/nested/route/+layout@.svelte --->
 <script>
-	import ReusableLayout from '$lib/ReusableLayout.svelte';
-	let { data, children } = $props();
+  import ReusableLayout from '$lib/ReusableLayout.svelte';
+  let { data, children } = $props();
 </script>
 
 <ReusableLayout {data}>
-	{@render children()}
+  {@render children()}
 </ReusableLayout>
 ```
 

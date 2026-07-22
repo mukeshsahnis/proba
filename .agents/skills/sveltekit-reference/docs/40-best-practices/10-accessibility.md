@@ -19,7 +19,7 @@ Because of this behavior, every page in your app should have a unique, descripti
 ```svelte
 <!--- file: src/routes/+page.svelte --->
 <svelte:head>
-	<title>Todo List</title>
+  <title>Todo List</title>
 </svelte:head>
 ```
 
@@ -39,9 +39,9 @@ If you want to customize SvelteKit's focus management, you can use the `afterNav
 import { afterNavigate } from '$app/navigation';
 
 afterNavigate(() => {
-	/** @type {HTMLElement | null} */
-	const to_focus = document.querySelector('.focus-me');
-	to_focus?.focus();
+  /** @type {HTMLElement | null} */
+  const to_focus = document.querySelector('.focus-me');
+  to_focus?.focus();
 });
 ```
 
@@ -69,14 +69,14 @@ If your content is available in multiple languages, you should set the `lang` at
  * @param {import('@sveltejs/kit').RequestEvent} event
  */
 function get_lang(event) {
-	return 'en';
+  return 'en';
 }
 // ---cut---
 /** @type {import('@sveltejs/kit').Handle} */
 export function handle({ event, resolve }) {
-	return resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('%lang%', get_lang(event))
-	});
+  return resolve(event, {
+    transformPageChunk: ({ html }) => html.replace('%lang%', get_lang(event))
+  });
 }
 ```
 

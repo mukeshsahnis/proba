@@ -47,8 +47,8 @@ export const prerender = true;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
-	const res = await fetch('/my-server-route.json');
-	return await res.json();
+  const res = await fetch('/my-server-route.json');
+  return await res.json();
 }
 ```
 
@@ -104,7 +104,7 @@ This can be done with [`config.kit.prerender.entries`](configuration#prerender),
 /// file: src/routes/blog/[slug]/+page.server.js
 /** @type {import('./$types').EntryGenerator} */
 export function entries() {
-	return [{ slug: 'hello-world' }, { slug: 'another-blog-post' }];
+  return [{ slug: 'hello-world' }, { slug: 'another-blog-post' }];
 }
 
 export const prerender = true;
@@ -194,11 +194,11 @@ export const config = {
 ```js
 /// file: src/routes/+layout.js
 export const config = {
-	runtime: 'edge',
-	regions: 'all',
-	foo: {
-		bar: true
-	}
+  runtime: 'edge',
+  regions: 'all',
+  foo: {
+    bar: true
+  }
 };
 ```
 
@@ -207,10 +207,10 @@ export const config = {
 ```js
 /// file: src/routes/+page.js
 export const config = {
-	regions: ['us1', 'us2'],
-	foo: {
-		baz: true
-	}
+  regions: ['us1', 'us2'],
+  foo: {
+    baz: true
+  }
 };
 ```
 

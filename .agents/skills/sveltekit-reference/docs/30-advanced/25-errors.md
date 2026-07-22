@@ -45,7 +45,7 @@ This throws an exception that SvelteKit catches, causing it to set the response 
 ```svelte
 <!--- file: src/routes/+error.svelte --->
 <script>
-	import { page } from '$app/state';
+  import { page } from '$app/state';
 </script>
 
 <h1>{page.error.message}</h1>
@@ -109,15 +109,15 @@ You can customise the fallback error page by adding a `src/error.html` file:
 ```html
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>%sveltekit.error.message%</title>
-	</head>
-	<body>
-		<h1>My custom error page</h1>
-		<p>Status: %sveltekit.status%</p>
-		<p>Message: %sveltekit.error.message%</p>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>%sveltekit.error.message%</title>
+  </head>
+  <body>
+    <h1>My custom error page</h1>
+    <p>Status: %sveltekit.status%</p>
+    <p>Message: %sveltekit.error.message%</p>
+  </body>
 </html>
 ```
 

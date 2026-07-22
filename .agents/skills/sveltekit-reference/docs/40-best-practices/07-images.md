@@ -16,7 +16,7 @@ Doing this manually is tedious. There are a variety of techniques you can use, d
 
 ```svelte
 <script>
-	import logo from '$lib/assets/logo.png';
+  import logo from '$lib/assets/logo.png';
 </script>
 
 <img alt="The project logo" src={logo} />
@@ -73,7 +73,7 @@ You can also manually import an image asset and pass it to an `<enhanced:img>`. 
 
 ```svelte
 <script>
-	import MyImage from './path/to/your/image.jpg?enhanced';
+  import MyImage from './path/to/your/image.jpg?enhanced';
 </script>
 
 <enhanced:img src={MyImage} alt="some alt text" />
@@ -83,19 +83,19 @@ You can also use [Vite's `import.meta.glob`](https://vitejs.dev/guide/features.h
 
 ```svelte
 <script>
-	const imageModules = import.meta.glob(
-		'/path/to/assets/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp,svg}',
-		{
-			eager: true,
-			query: {
-				enhanced: true
-			}
-		}
-	);
+  const imageModules = import.meta.glob(
+    '/path/to/assets/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp,svg}',
+    {
+      eager: true,
+      query: {
+        enhanced: true
+      }
+    }
+  );
 </script>
 
 {#each Object.entries(imageModules) as [_path, module]}
-	<enhanced:img src={module.default} alt="some alt text" />
+  <enhanced:img src={module.default} alt="some alt text" />
 {/each}
 ```
 
@@ -105,10 +105,10 @@ You can also use [Vite's `import.meta.glob`](https://vitejs.dev/guide/features.h
 
 ```svelte
 <style>
-	.hero-image img {
-		width: var(--size);
-		height: auto;
-	}
+  .hero-image img {
+    width: var(--size);
+    height: auto;
+  }
 </style>
 ```
 
@@ -126,8 +126,8 @@ The smallest picture generated automatically will have a width of 540px. If you'
 
 ```svelte
 <enhanced:img
-	src="./image.png?w=1280;640;400"
-	sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
+  src="./image.png?w=1280;640;400"
+  sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
 />
 ```
 

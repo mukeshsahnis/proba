@@ -85,9 +85,9 @@ const { registerOptions } = createAddHookMessageChannel();
 register('import-in-the-middle/hook.mjs', import.meta.url, registerOptions);
 
 const sdk = new NodeSDK({
-	serviceName: 'test-sveltekit-tracing',
-	traceExporter: new OTLPTraceExporter(),
-	instrumentations: [getNodeAutoInstrumentations()]
+  serviceName: 'test-sveltekit-tracing',
+  traceExporter: new OTLPTraceExporter(),
+  instrumentations: [getNodeAutoInstrumentations()]
 });
 
 sdk.start();

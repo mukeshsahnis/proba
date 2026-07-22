@@ -35,8 +35,8 @@ Every page should have well-written and unique `<title>` and `<meta name="descri
 ```js
 /// file: src/routes/sitemap.xml/+server.js
 export async function GET() {
-	return new Response(
-		`
+  return new Response(
+    `
 		<?xml version="1.0" encoding="UTF-8" ?>
 		<urlset
 			xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
@@ -48,12 +48,12 @@ export async function GET() {
 		>
 			<!-- <url> elements go here -->
 		</urlset>`.trim(),
-		{
-			headers: {
-				'Content-Type': 'application/xml'
-			}
-		}
-	);
+    {
+      headers: {
+        'Content-Type': 'application/xml'
+      }
+    }
+  );
 }
 ```
 
@@ -65,11 +65,11 @@ An unfortunate reality of modern web development is that it is sometimes necessa
 /// file: svelte.config.js
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		// since <link rel="stylesheet"> isn't
-		// allowed, inline all styles
-		inlineStyleThreshold: Infinity
-	}
+  kit: {
+    // since <link rel="stylesheet"> isn't
+    // allowed, inline all styles
+    inlineStyleThreshold: Infinity
+  }
 };
 
 export default config;
@@ -86,7 +86,7 @@ export const csr = false;
 
 ```html
 <html amp>
-	...
+  ...
 </html>
 ```
 
@@ -98,13 +98,13 @@ import * as amp from '@sveltejs/amp';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-	let buffer = '';
-	return await resolve(event, {
-		transformPageChunk: ({ html, done }) => {
-			buffer += html;
-			if (done) return amp.transform(buffer);
-		}
-	});
+  let buffer = '';
+  return await resolve(event, {
+    transformPageChunk: ({ html, done }) => {
+      buffer += html;
+      if (done) return amp.transform(buffer);
+    }
+  });
 }
 ```
 

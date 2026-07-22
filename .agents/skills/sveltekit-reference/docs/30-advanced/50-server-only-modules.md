@@ -26,9 +26,7 @@ Any time you have public-facing code that imports server-only code (whether dire
 ```js
 // @errors: 7005
 /// file: $lib/server/secrets.js
-export const atlantisCoordinates = [
-	/* redacted */
-];
+export const atlantisCoordinates = [/* redacted */];
 ```
 
 ```js
@@ -42,7 +40,7 @@ export const add = (a, b) => a + b;
 ```html
 /// file: src/routes/+page.svelte
 <script>
-	import { add } from './utils.js';
+  import { add } from './utils.js';
 </script>
 ```
 

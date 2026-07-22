@@ -29,15 +29,15 @@ Here's an example `launch.json`:
 
 ```json
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"command": "npm run dev",
-			"name": "Run development server",
-			"request": "launch",
-			"type": "node-terminal"
-		}
-	]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "npm run dev",
+      "name": "Run development server",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
 }
 ```
 

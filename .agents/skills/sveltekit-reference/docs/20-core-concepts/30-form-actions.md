@@ -14,9 +14,9 @@ In the simplest case, a page declares a `default` action:
 /// file: src/routes/login/+page.server.js
 /** @satisfies {import('./$types').Actions} */
 export const actions = {
-	default: async (event) => {
-		// TODO log the user in
-	}
+  default: async (event) => {
+    // TODO log the user in
+  }
 };
 ```
 
@@ -25,15 +25,15 @@ To invoke this action from the `/login` page, just add a `<form>` — no JavaScr
 ```svelte
 <!--- file: src/routes/login/+page.svelte --->
 <form method="POST">
-	<label>
-		Email
-		<input name="email" type="email" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
-	<button>Log in</button>
+  <label>
+    Email
+    <input name="email" type="email" />
+  </label>
+  <label>
+    Password
+    <input name="password" type="password" />
+  </label>
+  <button>Log in</button>
 </form>
 ```
 
@@ -46,7 +46,7 @@ We can also invoke the action from other pages (for example if there's a login w
 ```html
 /// file: src/routes/+layout.svelte
 <form method="POST" action="/login">
-	<!-- content -->
+  <!-- content -->
 </form>
 ```
 
@@ -85,16 +85,16 @@ As well as the `action` attribute, we can use the `formaction` attribute on a bu
 ```svelte
 /// file: src/routes/login/+page.svelte
 <form method="POST" +++action="?/login" +++>
-	<label>
-		Email
-		<input name="email" type="email" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
-	<button>Log in</button>
-	+++<button formaction="?/register">Register</button>+++
+  <label>
+    Email
+    <input name="email" type="email" />
+  </label>
+  <label>
+    Password
+    <input name="password" type="password" />
+  </label>
+  <button>Log in</button>
+  +++<button formaction="?/register">Register</button>+++
 </form>
 ```
 
@@ -140,14 +140,14 @@ export const actions = {
 ```svelte
 <!--- file: src/routes/login/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data, form } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data, form } = $props();
 </script>
 
 {#if form?.success}
-	<!-- this message is ephemeral; it exists because the page was rendered in
+  <!-- this message is ephemeral; it exists because the page was rendered in
 	       response to a form submission. it will vanish if the user reloads -->
-	<p>Successfully logged in! Welcome back, {data.user.name}</p>
+  <p>Successfully logged in! Welcome back, {data.user.name}</p>
 {/if}
 ```
 
@@ -208,18 +208,18 @@ export const actions = {
 ```svelte
 /// file: src/routes/login/+page.svelte
 <form method="POST" action="?/login">
-	+++ {#if form?.missing}<p class="error">The email field is required</p>{/if}
-	{#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}+++
-	<label>
-		Email
-		<input name="email" type="email" +++value="{form?.email ?? ''}+++" />
-	</label>
-	<label>
-		Password
-		<input name="password" type="password" />
-	</label>
-	<button>Log in</button>
-	<button formaction="?/register">Register</button>
+  +++ {#if form?.missing}<p class="error">The email field is required</p>{/if}
+  {#if form?.incorrect}<p class="error">Invalid credentials!</p>{/if}+++
+  <label>
+    Email
+    <input name="email" type="email" +++value="{form?.email ?? ''}+++" />
+  </label>
+  <label>
+    Password
+    <input name="password" type="password" />
+  </label>
+  <button>Log in</button>
+  <button formaction="?/register">Register</button>
 </form>
 ```
 
@@ -432,36 +432,36 @@ We can also implement progressive enhancement ourselves, without `use:enhance`, 
 ```svelte
 <!--- file: src/routes/login/+page.svelte --->
 <script>
-	import { invalidateAll, goto } from '$app/navigation';
-	import { applyAction, deserialize } from '$app/forms';
+  import { invalidateAll, goto } from '$app/navigation';
+  import { applyAction, deserialize } from '$app/forms';
 
-	/** @type {import('./$types').PageProps} */
-	let { form } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { form } = $props();
 
-	/** @param {SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}} event */
-	async function handleSubmit(event) {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget, event.submitter);
+  /** @param {SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}} event */
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget, event.submitter);
 
-		const response = await fetch(event.currentTarget.action, {
-			method: 'POST',
-			body: data
-		});
+    const response = await fetch(event.currentTarget.action, {
+      method: 'POST',
+      body: data
+    });
 
-		/** @type {import('@sveltejs/kit').ActionResult} */
-		const result = deserialize(await response.text());
+    /** @type {import('@sveltejs/kit').ActionResult} */
+    const result = deserialize(await response.text());
 
-		if (result.type === 'success') {
-			// rerun all `load` functions, following the successful update
-			await invalidateAll();
-		}
+    if (result.type === 'success') {
+      // rerun all `load` functions, following the successful update
+      await invalidateAll();
+    }
 
-		applyAction(result);
-	}
+    applyAction(result);
+  }
 </script>
 
 <form method="POST" onsubmit={handleSubmit}>
-	<!-- content -->
+  <!-- content -->
 </form>
 ```
 
@@ -487,11 +487,11 @@ Form actions are the preferred way to send data to the server, since they can be
 ```svelte
 <!--- file: src/routes/send-message/+page.svelte --->
 <script>
-	function rerun() {
-		fetch('/api/ci', {
-			method: 'POST'
-		});
-	}
+  function rerun() {
+    fetch('/api/ci', {
+      method: 'POST'
+    });
+  }
 </script>
 
 <button onclick={rerun}>Rerun CI</button>
@@ -502,7 +502,7 @@ Form actions are the preferred way to send data to the server, since they can be
 /// file: src/routes/api/ci/+server.js
 /** @type {import('./$types').RequestHandler} */
 export function POST() {
-	// do something
+  // do something
 }
 ```
 
@@ -514,10 +514,10 @@ Some forms don't need to `POST` data to the server — search inputs, for exampl
 
 ```html
 <form action="/search">
-	<label>
-		Search
-		<input name="q" />
-	</label>
+  <label>
+    Search
+    <input name="q" />
+  </label>
 </form>
 ```
 

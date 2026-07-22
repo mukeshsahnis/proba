@@ -11,19 +11,19 @@ SvelteKit makes this possible with the [`pushState`]($app-navigation#pushState) 
 ```svelte
 <!--- file: +page.svelte --->
 <script>
-	import { pushState } from '$app/navigation';
-	import { page } from '$app/state';
-	import Modal from './Modal.svelte';
+  import { pushState } from '$app/navigation';
+  import { page } from '$app/state';
+  import Modal from './Modal.svelte';
 
-	function showModal() {
-		pushState('', {
-			showModal: true
-		});
-	}
+  function showModal() {
+    pushState('', {
+      showModal: true
+    });
+  }
 </script>
 
 {#if page.state.showModal}
-	<Modal close={() => history.back()} />
+  <Modal close={() => history.back()} />
 {/if}
 ```
 
@@ -49,54 +49,54 @@ For this to work, you need to load the data that the `+page.svelte` expects. A c
 ```svelte
 <!--- file: src/routes/photos/+page.svelte --->
 <script>
-	import { preloadData, pushState, goto } from '$app/navigation';
-	import { page } from '$app/state';
-	import Modal from './Modal.svelte';
-	import PhotoPage from './[id]/+page.svelte';
+  import { preloadData, pushState, goto } from '$app/navigation';
+  import { page } from '$app/state';
+  import Modal from './Modal.svelte';
+  import PhotoPage from './[id]/+page.svelte';
 
-	let { data } = $props();
+  let { data } = $props();
 </script>
 
 {#each data.thumbnails as thumbnail}
-	<a
-		href="/photos/{thumbnail.id}"
-		onclick={async (e) => {
-			if (
-				innerWidth < 640 || // bail if the screen is too small
-				e.shiftKey || // or the link is opened in a new window
-				e.metaKey ||
-				e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
-				// should also consider clicking with a mouse scroll wheel
-			)
-				return;
+  <a
+    href="/photos/{thumbnail.id}"
+    onclick={async (e) => {
+      if (
+        innerWidth < 640 || // bail if the screen is too small
+        e.shiftKey || // or the link is opened in a new window
+        e.metaKey ||
+        e.ctrlKey // or a new tab (mac: metaKey, win/linux: ctrlKey)
+        // should also consider clicking with a mouse scroll wheel
+      )
+        return;
 
-			// prevent navigation
-			e.preventDefault();
+      // prevent navigation
+      e.preventDefault();
 
-			const { href } = e.currentTarget;
+      const { href } = e.currentTarget;
 
-			// run `load` functions (or rather, get the result of the `load` functions
-			// that are already running because of `data-sveltekit-preload-data`)
-			const result = await preloadData(href);
+      // run `load` functions (or rather, get the result of the `load` functions
+      // that are already running because of `data-sveltekit-preload-data`)
+      const result = await preloadData(href);
 
-			if (result.type === 'loaded' && result.status === 200) {
-				pushState(href, { selected: result.data });
-			} else {
-				// something bad happened! try navigating
-				goto(href);
-			}
-		}}
-	>
-		<img alt={thumbnail.alt} src={thumbnail.src} />
-	</a>
+      if (result.type === 'loaded' && result.status === 200) {
+        pushState(href, { selected: result.data });
+      } else {
+        // something bad happened! try navigating
+        goto(href);
+      }
+    }}
+  >
+    <img alt={thumbnail.alt} src={thumbnail.src} />
+  </a>
 {/each}
 
 {#if page.state.selected}
-	<Modal onclose={() => history.back()}>
-		<!-- pass page data to the +page.svelte component,
+  <Modal onclose={() => history.back()}>
+    <!-- pass page data to the +page.svelte component,
 		     just like SvelteKit would on navigation -->
-		<PhotoPage data={page.state.selected} />
-	</Modal>
+    <PhotoPage data={page.state.selected} />
+  </Modal>
 {/if}
 ```
 

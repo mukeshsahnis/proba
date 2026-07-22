@@ -44,8 +44,8 @@ Pages can receive data from `load` functions via the `data` prop.
 ```svelte
 <!--- file: src/routes/blog/[slug]/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 </script>
 
 <h1>{data.title}</h1><div>{@html data.content}</div>
@@ -66,14 +66,14 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export function load({ params }) {
-	if (params.slug === 'hello-world') {
-		return {
-			title: 'Hello world!',
-			content: 'Welcome to our blog. Lorem ipsum dolor sit amet...'
-		};
-	}
+  if (params.slug === 'hello-world') {
+    return {
+      title: 'Hello world!',
+      content: 'Welcome to our blog. Lorem ipsum dolor sit amet...'
+    };
+  }
 
-	error(404, 'Not found');
+  error(404, 'Not found');
 }
 ```
 
@@ -133,7 +133,7 @@ If an error occurs during `load`, SvelteKit will render a default error page. Yo
 ```svelte
 <!--- file: src/routes/blog/[slug]/+error.svelte --->
 <script>
-	import { page } from '$app/state';
+  import { page } from '$app/state';
 </script>
 
 <h1>{page.status}: {page.error.message}</h1>
@@ -164,7 +164,7 @@ To create a layout that applies to every page, make a file called `src/routes/+l
 
 ```svelte
 <script>
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 {@render children()}
@@ -175,13 +175,13 @@ To create a layout that applies to every page, make a file called `src/routes/+l
 ```svelte
 <!--- file: src/routes/+layout.svelte --->
 <script>
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 <nav>
-	<a href="/">Home</a>
-	<a href="/about">About</a>
-	<a href="/settings">Settings</a>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/settings">Settings</a>
 </nav>
 
 {@render children()}
@@ -213,16 +213,16 @@ We can create a layout that only applies to pages below `/settings` (while inher
 ```svelte
 <!--- file: src/routes/settings/+layout.svelte --->
 <script>
-	/** @type {import('./$types').LayoutProps} */
-	let { data, children } = $props();
+  /** @type {import('./$types').LayoutProps} */
+  let { data, children } = $props();
 </script>
 
 <h1>Settings</h1>
 
 <div class="submenu">
-	{#each data.sections as section}
-		<a href="/settings/{section.slug}">{section.title}</a>
-	{/each}
+  {#each data.sections as section}
+    <a href="/settings/{section.slug}">{section.title}</a>
+  {/each}
 </div>
 
 {@render children()}
@@ -243,12 +243,12 @@ Just like `+page.svelte` loading data from `+page.js`, your `+layout.svelte` com
 /// file: src/routes/settings/+layout.js
 /** @type {import('./$types').LayoutLoad} */
 export function load() {
-	return {
-		sections: [
-			{ slug: 'profile', title: 'Profile' },
-			{ slug: 'notifications', title: 'Notifications' }
-		]
-	};
+  return {
+    sections: [
+      { slug: 'profile', title: 'Profile' },
+      { slug: 'notifications', title: 'Notifications' }
+    ]
+  };
 }
 ```
 
@@ -259,10 +259,10 @@ Data returned from a layout's `load` function is also available to all its child
 ```svelte
 <!--- file: src/routes/settings/profile/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 
-	console.log(data.sections); // [{ slug: 'profile', title: 'Profile' }, ...]
+  console.log(data.sections); // [{ slug: 'profile', title: 'Profile' }, ...]
 </script>
 ```
 
@@ -286,18 +286,18 @@ import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export function GET({ url }) {
-	const min = Number(url.searchParams.get('min') ?? '0');
-	const max = Number(url.searchParams.get('max') ?? '1');
+  const min = Number(url.searchParams.get('min') ?? '0');
+  const max = Number(url.searchParams.get('max') ?? '1');
 
-	const d = max - min;
+  const d = max - min;
 
-	if (isNaN(d) || d < 0) {
-		error(400, 'min and max must be numbers, and min must be less than max');
-	}
+  if (isNaN(d) || d < 0) {
+    error(400, 'min and max must be numbers, and min must be less than max');
+  }
 
-	const random = min + Math.random() * d;
+  const random = min + Math.random() * d;
 
-	return new Response(String(random));
+  return new Response(String(random));
 }
 ```
 
@@ -318,21 +318,21 @@ By exporting `POST`/`PUT`/`PATCH`/`DELETE`/`OPTIONS`/`HEAD` handlers, `+server.j
 ```svelte
 <!--- file: src/routes/add/+page.svelte --->
 <script>
-	let a = 0;
-	let b = 0;
-	let total = 0;
+  let a = 0;
+  let b = 0;
+  let total = 0;
 
-	async function add() {
-		const response = await fetch('/api/add', {
-			method: 'POST',
-			body: JSON.stringify({ a, b }),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
+  async function add() {
+    const response = await fetch('/api/add', {
+      method: 'POST',
+      body: JSON.stringify({ a, b }),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
 
-		total = await response.json();
-	}
+    total = await response.json();
+  }
 </script>
 
 <input type="number" bind:value={a} /> +
@@ -348,8 +348,8 @@ import { json } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	const { a, b } = await request.json();
-	return json(a + b);
+  const { a, b } = await request.json();
+  return json(a + b);
 }
 ```
 
@@ -367,14 +367,14 @@ import { json, text } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ request }) {
-	const { a, b } = await request.json();
-	return json(a + b);
+  const { a, b } = await request.json();
+  return json(a + b);
 }
 
 // This handler will respond to PUT, PATCH, DELETE, etc.
 /** @type {import('./$types').RequestHandler} */
 export async function fallback({ request }) {
-	return text(`I caught your ${request.method} request!`);
+  return text(`I caught your ${request.method} request!`);
 }
 ```
 
@@ -397,8 +397,8 @@ For example, annotating `let { data } = $props()` with `PageProps` (or `LayoutPr
 ```svelte
 <!--- file: src/routes/blog/[slug]/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 </script>
 ```
 

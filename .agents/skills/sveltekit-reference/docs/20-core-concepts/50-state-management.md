@@ -17,20 +17,20 @@ let user;
 
 /** @type {import('./$types').PageServerLoad} */
 export function load() {
-	return { user };
+  return { user };
 }
 
 /** @satisfies {import('./$types').Actions} */
 export const actions = {
-	default: async ({ request }) => {
-		const data = await request.formData();
+  default: async ({ request }) => {
+    const data = await request.formData();
 
-		// NEVER DO THIS!
-		user = {
-			name: data.get('name'),
-			embarrassingSecret: data.get('secret')
-		};
-	}
+    // NEVER DO THIS!
+    user = {
+      name: data.get('name'),
+      embarrassingSecret: data.get('secret')
+    };
+  }
 };
 ```
 
@@ -87,24 +87,24 @@ You might wonder how we're able to use `page.data` and other [app state]($app-st
 ```svelte
 <!--- file: src/routes/+layout.svelte --->
 <script>
-	import { setContext } from 'svelte';
+  import { setContext } from 'svelte';
 
-	/** @type {import('./$types').LayoutProps} */
-	let { data } = $props();
+  /** @type {import('./$types').LayoutProps} */
+  let { data } = $props();
 
-	// Pass a function referencing our state
-	// to the context for child components to access
-	setContext('user', () => data.user);
+  // Pass a function referencing our state
+  // to the context for child components to access
+  setContext('user', () => data.user);
 </script>
 ```
 
 ```svelte
 <!--- file: src/routes/user/+page.svelte --->
 <script>
-	import { getContext } from 'svelte';
+  import { getContext } from 'svelte';
 
-	// Retrieve user store from context
-	const user = getContext('user');
+  // Retrieve user store from context
+  const user = getContext('user');
 </script>
 
 <p>Welcome {user().name}</p>
@@ -126,17 +126,17 @@ When you navigate around your application, SvelteKit reuses existing layout and 
 ```svelte
 <!--- file: src/routes/blog/[slug]/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data } = $props();
 
-	// THIS CODE IS BUGGY!
-	const wordCount = data.content.split(' ').length;
-	const estimatedReadingTime = wordCount / 250;
+  // THIS CODE IS BUGGY!
+  const wordCount = data.content.split(' ').length;
+  const estimatedReadingTime = wordCount / 250;
 </script>
 
 <header>
-	<h1>{data.title}</h1>
-	<p>Reading time: {Math.round(estimatedReadingTime)} minutes</p>
+  <h1>{data.title}</h1>
+  <p>Reading time: {Math.round(estimatedReadingTime)} minutes</p>
 </header>
 
 <div>{@html data.content}</div>
@@ -164,11 +164,11 @@ Reusing components like this means that things like sidebar scroll state are pre
 
 ```svelte
 <script>
-	import { page } from '$app/state';
+  import { page } from '$app/state';
 </script>
 
 {#key page.url.pathname}
-	<BlogPost title={data.title} content={data.title} />
+  <BlogPost title={data.title} content={data.title} />
 {/key}
 ```
 

@@ -15,7 +15,7 @@ The `RequestHandler` and `Load` types both accept a `Params` argument allowing y
     baz: string
   }>} */
 export async function GET({ params }) {
-	// ...
+  // ...
 }
 ```
 
@@ -29,9 +29,9 @@ To solve this problem, SvelteKit generates `.d.ts` files for each of your endpoi
 import type * as Kit from '@sveltejs/kit';
 
 type RouteParams = {
-	foo: string;
-	bar: string;
-	baz: string;
+  foo: string;
+  bar: string;
+  baz: string;
 };
 
 export type RequestHandler = Kit.RequestHandler<RouteParams>;
@@ -91,8 +91,8 @@ Starting with version 2.16.0, two additional helper types are provided: `PagePro
 ```svelte
 <!--- file: src/routes/+page.svelte --->
 <script>
-	/** @type {import('./$types').PageProps} */
-	let { data, form } = $props();
+  /** @type {import('./$types').PageProps} */
+  let { data, form } = $props();
 </script>
 ```
 
@@ -102,8 +102,8 @@ Starting with version 2.16.0, two additional helper types are provided: `PagePro
 > ```svelte
 > <!--- file: src/routes/+page.svelte --->
 > <script>
-> 	/** @type {{ data: import('./$types').PageData, form: import('./$types').ActionData }} */
-> 	let { data, form } = $props();
+>   /** @type {{ data: import('./$types').PageData, form: import('./$types').ActionData }} */
+>   let { data, form } = $props();
 > </script>
 > ```
 >
@@ -112,10 +112,10 @@ Starting with version 2.16.0, two additional helper types are provided: `PagePro
 > ```svelte
 > <!--- file: src/routes/+page.svelte --->
 > <script>
-> 	/** @type {import('./$types').PageData} */
-> 	export let data;
-> 	/** @type {import('./$types').ActionData} */
-> 	export let form;
+>   /** @type {import('./$types').PageData} */
+>   export let data;
+>   /** @type {import('./$types').ActionData} */
+>   export let form;
 > </script>
 > ```
 
@@ -130,35 +130,35 @@ The generated `.svelte-kit/tsconfig.json` file contains a mixture of options. So
 ```json
 /// file: .svelte-kit/tsconfig.json
 {
-	"compilerOptions": {
-		"paths": {
-			"$lib": ["../src/lib"],
-			"$lib/*": ["../src/lib/*"]
-		},
-		"rootDirs": ["..", "./types"]
-	},
-	"include": [
-		"ambient.d.ts",
-		"non-ambient.d.ts",
-		"./types/**/$types.d.ts",
-		"../vite.config.js",
-		"../vite.config.ts",
-		"../src/**/*.js",
-		"../src/**/*.ts",
-		"../src/**/*.svelte",
-		"../tests/**/*.js",
-		"../tests/**/*.ts",
-		"../tests/**/*.svelte"
-	],
-	"exclude": [
-		"../node_modules/**",
-		"../src/service-worker.js",
-		"../src/service-worker/**/*.js",
-		"../src/service-worker.ts",
-		"../src/service-worker/**/*.ts",
-		"../src/service-worker.d.ts",
-		"../src/service-worker/**/*.d.ts"
-	]
+  "compilerOptions": {
+    "paths": {
+      "$lib": ["../src/lib"],
+      "$lib/*": ["../src/lib/*"]
+    },
+    "rootDirs": ["..", "./types"]
+  },
+  "include": [
+    "ambient.d.ts",
+    "non-ambient.d.ts",
+    "./types/**/$types.d.ts",
+    "../vite.config.js",
+    "../vite.config.ts",
+    "../src/**/*.js",
+    "../src/**/*.ts",
+    "../src/**/*.svelte",
+    "../tests/**/*.js",
+    "../tests/**/*.ts",
+    "../tests/**/*.svelte"
+  ],
+  "exclude": [
+    "../node_modules/**",
+    "../src/service-worker.js",
+    "../src/service-worker/**/*.js",
+    "../src/service-worker.ts",
+    "../src/service-worker/**/*.ts",
+    "../src/service-worker.d.ts",
+    "../src/service-worker/**/*.d.ts"
+  ]
 }
 ```
 
@@ -167,28 +167,28 @@ Others are required for SvelteKit to work properly, and should also be left unto
 ```json
 /// file: .svelte-kit/tsconfig.json
 {
-	"compilerOptions": {
-		// this ensures that types are explicitly
-		// imported with `import type`, which is
-		// necessary as Svelte/Vite cannot
-		// otherwise compile components correctly
-		"verbatimModuleSyntax": true,
+  "compilerOptions": {
+    // this ensures that types are explicitly
+    // imported with `import type`, which is
+    // necessary as Svelte/Vite cannot
+    // otherwise compile components correctly
+    "verbatimModuleSyntax": true,
 
-		// Vite compiles one TypeScript module
-		// at a time, rather than compiling
-		// the entire module graph
-		"isolatedModules": true,
+    // Vite compiles one TypeScript module
+    // at a time, rather than compiling
+    // the entire module graph
+    "isolatedModules": true,
 
-		// Tell TS it's used only for type-checking
-		"noEmit": true,
+    // Tell TS it's used only for type-checking
+    "noEmit": true,
 
-		// This ensures both `vite build`
-		// and `svelte-package` work correctly
-		"lib": ["esnext", "DOM", "DOM.Iterable"],
-		"moduleResolution": "bundler",
-		"module": "esnext",
-		"target": "esnext"
-	}
+    // This ensures both `vite build`
+    // and `svelte-package` work correctly
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "esnext"
+  }
 }
 ```
 

@@ -26,12 +26,12 @@ This function runs every time the SvelteKit server receives a [request](web-stan
 /// file: src/hooks.server.js
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-	if (event.url.pathname.startsWith('/custom')) {
-		return new Response('custom response');
-	}
+  if (event.url.pathname.startsWith('/custom')) {
+    return new Response('custom response');
+  }
 
-	const response = await resolve(event);
-	return response;
+  const response = await resolve(event);
+  return response;
 }
 ```
 
@@ -92,13 +92,13 @@ You can define multiple `handle` functions and execute them with [the `sequence`
 /// file: src/hooks.server.js
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-	const response = await resolve(event, {
-		transformPageChunk: ({ html }) => html.replace('old', 'new'),
-		filterSerializedResponseHeaders: (name) => name.startsWith('x-'),
-		preload: ({ type, path }) => type === 'js' || path.includes('/important/')
-	});
+  const response = await resolve(event, {
+    transformPageChunk: ({ html }) => html.replace('old', 'new'),
+    filterSerializedResponseHeaders: (name) => name.startsWith('x-'),
+    preload: ({ type, path }) => type === 'js' || path.includes('/important/')
+  });
 
-	return response;
+  return response;
 }
 ```
 
@@ -114,15 +114,15 @@ For example, your `load` function might make a request to a public URL like `htt
 /// file: src/hooks.server.js
 /** @type {import('@sveltejs/kit').HandleFetch} */
 export async function handleFetch({ request, fetch }) {
-	if (request.url.startsWith('https://api.yourapp.com/')) {
-		// clone the original request, but change the URL
-		request = new Request(
-			request.url.replace('https://api.yourapp.com/', 'http://localhost:9999/'),
-			request
-		);
-	}
+  if (request.url.startsWith('https://api.yourapp.com/')) {
+    // clone the original request, but change the URL
+    request = new Request(
+      request.url.replace('https://api.yourapp.com/', 'http://localhost:9999/'),
+      request
+    );
+  }
 
-	return fetch(request);
+  return fetch(request);
 }
 ```
 
@@ -135,11 +135,11 @@ There is one caveat: if your app and your API are on sibling subdomains — `www
 // @errors: 2345
 /** @type {import('@sveltejs/kit').HandleFetch} */
 export async function handleFetch({ event, request, fetch }) {
-	if (request.url.startsWith('https://api.my-domain.com/')) {
-		request.headers.set('cookie', event.request.headers.get('cookie'));
-	}
+  if (request.url.startsWith('https://api.my-domain.com/')) {
+    request.headers.set('cookie', event.request.headers.get('cookie'));
+  }
 
-	return fetch(request);
+  return fetch(request);
 }
 ```
 
@@ -155,7 +155,7 @@ import * as v from 'valibot';
 import { query } from '$app/server';
 
 export const getTodo = query(v.string(), (id) => {
-	// implementation...
+  // implementation...
 });
 ```
 
@@ -167,9 +167,9 @@ To customise this message and add additional properties to the error object, imp
 /// file: src/hooks.server.js
 /** @type {import('@sveltejs/kit').HandleValidationError} */
 export function handleValidationError({ issues }) {
-	return {
-		message: 'No thank you'
-	};
+  return {
+    message: 'No thank you'
+  };
 }
 ```
 
@@ -193,12 +193,12 @@ To add more information to the `$page.error` object in a type-safe way, you can 
 ```ts
 /// file: src/app.d.ts
 declare global {
-	namespace App {
-		interface Error {
-			message: string;
-			errorId: string;
-		}
-	}
+  namespace App {
+    interface Error {
+      message: string;
+      errorId: string;
+    }
+  }
 }
 
 export {};
@@ -287,7 +287,7 @@ import * as db from '$lib/server/database';
 
 /** @type {import('@sveltejs/kit').ServerInit} */
 export async function init() {
-	await db.connect();
+  await db.connect();
 }
 ```
 
@@ -310,16 +310,16 @@ For example, you might have a `src/routes/[[lang]]/about/+page.svelte` page, whi
 
 /** @type {Record<string, string>} */
 const translated = {
-	'/en/about': '/en/about',
-	'/de/ueber-uns': '/de/about',
-	'/fr/a-propos': '/fr/about'
+  '/en/about': '/en/about',
+  '/de/ueber-uns': '/de/about',
+  '/fr/a-propos': '/fr/about'
 };
 
 /** @type {import('@sveltejs/kit').Reroute} */
 export function reroute({ url }) {
-	if (url.pathname in translated) {
-		return translated[url.pathname];
-	}
+  if (url.pathname in translated) {
+    return translated[url.pathname];
+  }
 }
 ```
 
@@ -335,14 +335,14 @@ Since version 2.18, the `reroute` hook can be asynchronous, allowing it to (for 
 
 /** @type {import('@sveltejs/kit').Reroute} */
 export async function reroute({ url, fetch }) {
-	// Ask a special endpoint within your app about the destination
-	if (url.pathname === '/api/reroute') return;
+  // Ask a special endpoint within your app about the destination
+  if (url.pathname === '/api/reroute') return;
 
-	const api = new URL('/api/reroute', url);
-	api.searchParams.set('pathname', url.pathname);
+  const api = new URL('/api/reroute', url);
+  api.searchParams.set('pathname', url.pathname);
 
-	const result = await fetch(api).then((r) => r.json());
-	return result.pathname;
+  const result = await fetch(api).then((r) => r.json());
+  return result.pathname;
 }
 ```
 
@@ -359,10 +359,10 @@ import { Vector } from '$lib/math';
 
 /** @type {import('@sveltejs/kit').Transport} */
 export const transport = {
-	Vector: {
-		encode: (value) => value instanceof Vector && [value.x, value.y],
-		decode: ([x, y]) => new Vector(x, y)
-	}
+  Vector: {
+    encode: (value) => value instanceof Vector && [value.x, value.y],
+    decode: ([x, y]) => new Vector(x, y)
+  }
 };
 ```
 

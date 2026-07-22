@@ -15,9 +15,9 @@ import adapter from '@sveltejs/adapter-node';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter()
-	}
+  kit: {
+    adapter: adapter()
+  }
 };
 
 export default config;
@@ -151,14 +151,14 @@ import adapter from '@sveltejs/adapter-node';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	kit: {
-		adapter: adapter({
-			// default options are shown
-			out: 'build',
-			precompress: true,
-			envPrefix: ''
-		})
-	}
+  kit: {
+    adapter: adapter({
+      // default options are shown
+      out: 'build',
+      precompress: true,
+      envPrefix: ''
+    })
+  }
 };
 
 export default config;
@@ -202,8 +202,8 @@ You can listen to the `sveltekit:shutdown` event which is emitted after the HTTP
 ```js
 // @errors: 2304
 process.on('sveltekit:shutdown', async (reason) => {
-	await jobs.stop();
-	await db.close();
+  await jobs.stop();
+  await db.close();
 });
 ```
 
@@ -259,13 +259,13 @@ const app = express();
 
 // add a route that lives separately from the SvelteKit app
 app.get('/healthcheck', (req, res) => {
-	res.end('ok');
+  res.end('ok');
 });
 
 // let SvelteKit handle everything else, including serving prerendered pages and static assets
 app.use(handler);
 
 app.listen(3000, () => {
-	console.log('listening on port 3000');
+  console.log('listening on port 3000');
 });
 ```

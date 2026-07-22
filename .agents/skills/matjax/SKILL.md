@@ -12,6 +12,7 @@ Use this file for the decision tree and quick recipes. Read a `references/*.md` 
 ## Step 0: Confirm MathJax is the right tool
 
 If the user hasn't already committed to MathJax, briefly check whether **KaTeX** is a better fit — it renders synchronously and is faster for the common case (no `\require`, no dynamic package loading, simpler LaTeX subset). Recommend MathJax specifically when the task needs:
+
 - Full LaTeX/AMS-math coverage (uncommon macros, `\newcommand`, physics/chemistry packages like `mhchem`, `physics`)
 - MathML output for accessibility or semantic markup
 - Server-side/Node pre-rendering to static SVG (no client-side JS needed at render time)
@@ -21,13 +22,13 @@ If the user has already said "MathJax" or the project already depends on it, ski
 
 ## Step 1: Identify the integration context
 
-| Context | Go to |
-|---|---|
-| Plain HTML page, CDN script tag | "Browser: CDN" below |
-| Bundled app (Vite, webpack, SvelteKit, React, Vue) | `references/frontend-integration.md` |
-| Node.js script / server pre-rendering formulas to static SVG/MathML (no browser) | `references/node-ssr.md` |
-| Need to tune input/output packages, macros, delimiters, or fonts | `references/configuration.md` |
-| Something isn't rendering, is slow, or layout jumps/flickers | `references/troubleshooting.md` |
+| Context                                                                          | Go to                                |
+| -------------------------------------------------------------------------------- | ------------------------------------ |
+| Plain HTML page, CDN script tag                                                  | "Browser: CDN" below                 |
+| Bundled app (Vite, webpack, SvelteKit, React, Vue)                               | `references/frontend-integration.md` |
+| Node.js script / server pre-rendering formulas to static SVG/MathML (no browser) | `references/node-ssr.md`             |
+| Need to tune input/output packages, macros, delimiters, or fonts                 | `references/configuration.md`        |
+| Something isn't rendering, is slow, or layout jumps/flickers                     | `references/troubleshooting.md`      |
 
 ## Browser: CDN (simplest case)
 
@@ -37,8 +38,14 @@ For a static page or quick prototype, load the combined component from a CDN —
 <script>
   window.MathJax = {
     tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      inlineMath: [
+        ['$', '$'],
+        ['\\(', '\\)']
+      ],
+      displayMath: [
+        ['$$', '$$'],
+        ['\\[', '\\]']
+      ]
     },
     svg: { fontCache: 'global' }
   };
@@ -49,6 +56,7 @@ For a static page or quick prototype, load the combined component from a CDN —
 Then just write LaTeX in the page body: `The formula $E = mc^2$ is well known.` MathJax scans the DOM on load and typesets automatically.
 
 **Combined component choice:**
+
 - `tex-svg.js` — TeX input, SVG output. Best default: crisp at any zoom, no web font loading required, works well for pre-rendering and print/PDF.
 - `tex-chtml.js` — TeX input, CHTML (HTML+CSS) output. Slightly better text selection/copy-paste behavior, needs MathJax web fonts loaded.
 - `tex-mml-chtml.js` — adds MathML output alongside CHTML, larger payload, best when downstream tools consume MathML.
@@ -65,13 +73,14 @@ Always pass the specific changed element(s) rather than omitting the argument (w
 ## Quick decision: SVG vs CHTML output
 
 Default to **SVG** output unless you have a specific reason to prefer CHTML:
+
 - SVG: self-contained, no external font files, scales perfectly, safe inside `<foreignObject>` or when embedding into other SVG/canvas contexts (relevant for design-tool plugins that manipulate vector graphics, e.g. a Figma/FigJam plugin canvas).
 - CHTML: marginally better copy/paste of the rendered math as text, but depends on MathJax web fonts being reachable (CDN or self-hosted `.woff` files).
 
 ## Escaping pitfalls (the most common failure mode)
 
 - **Markdown processors** often treat `_` and `*` as emphasis markers, mangling LaTeX subscripts (`x_1`) and multiplication. Configure the Markdown renderer to skip math regions, or process math before Markdown.
-- **JSX/Svelte templates** treat `{` and `}` as expression delimiters. LaTeX is full of braces (`\frac{1}{2}`), so LaTeX strings must be passed as *string literals*, not interpolated as template syntax — see `references/frontend-integration.md` for exact patterns per framework.
+- **JSX/Svelte templates** treat `{` and `}` as expression delimiters. LaTeX is full of braces (`\frac{1}{2}`), so LaTeX strings must be passed as _string literals_, not interpolated as template syntax — see `references/frontend-integration.md` for exact patterns per framework.
 - **Dollar signs as literal currency** (`$5`) will be misparsed as math delimiters if `inlineMath` includes `$...$`. Prefer `\(...\)` for inline math and reserve `$` delimiters for contexts with no literal currency, or disable single-dollar delimiters entirely.
 
 ## Accessibility
