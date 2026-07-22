@@ -41,6 +41,7 @@
 
   function typesetMathInChat() {
     if (typeof window !== 'undefined' && window.MathJax && chatBoxRef) {
+      window.MathJax.typesetClear?.([chatBoxRef]);
       window.MathJax.typesetPromise?.([chatBoxRef]).catch((err) => console.error(err));
     }
   }
