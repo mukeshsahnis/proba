@@ -6,6 +6,7 @@
     type = 'coin',
     total = 2,
     favorable = 1,
+    colorCategories = null,
     isFlipping = false,
     selectedIndex = null
   } = $props();
@@ -135,8 +136,30 @@
         .attr('stroke-width', 2)
         .attr('stroke-dasharray', '5 4');
 
+      // Multi-color category list builder if available
+      let marbleColors = [];
+      if (Array.isArray(colorCategories) && colorCategories.length > 0) {
+        colorCategories.forEach((cat) => {
+          const hex =
+            cat.hexColor ||
+            (cat.colorName === 'red'
+              ? '#ef4444'
+              : cat.colorName === 'green'
+                ? '#10b981'
+                : cat.colorName === 'blue'
+                  ? '#3b82f6'
+                  : '#f59e0b');
+          for (let c = 0; c < (cat.count || 0); c++) {
+            marbleColors.push({ fill: hex, isTarget: cat.isTarget });
+          }
+        });
+      }
+
       for (let i = 0; i < safeTotal; i++) {
-        const isFav = i < safeFavorable;
+        const item = marbleColors[i] || {
+          fill: i < safeFavorable ? '#f59e0b' : '#3b82f6',
+          isTarget: i < safeFavorable
+        };
         const col = i % itemsPerRow;
         const row = Math.floor(i / itemsPerRow);
 
@@ -148,9 +171,9 @@
           .attr('cx', cx)
           .attr('cy', cy)
           .attr('r', marbleRadius)
-          .attr('fill', isFav ? '#f59e0b' : '#3b82f6')
-          .attr('stroke', isFav ? '#b45309' : '#1d4ed8')
-          .attr('stroke-width', 2);
+          .attr('fill', item.fill)
+          .attr('stroke', item.isTarget ? '#78350f' : '#1e3a8a')
+          .attr('stroke-width', item.isTarget ? 2.5 : 1.5);
       }
     }
   }

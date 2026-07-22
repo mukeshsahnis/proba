@@ -31,6 +31,11 @@ Output ONLY valid JSON matching this exact schema:
   "formulaLatex": "LaTeX string showing formula e.g. P(\\\\text{Event}) = \\\\frac{a}{b}",
   "totalOutcomes": number,
   "favorableOutcomes": number,
+  "colorCategories": [
+    {"colorName": "red", "hexColor": "#ef4444", "count": number, "isTarget": boolean},
+    {"colorName": "blue", "hexColor": "#3b82f6", "count": number, "isTarget": boolean},
+    {"colorName": "green", "hexColor": "#10b981", "count": number, "isTarget": boolean}
+  ],
   "options": ["string", "string", "string", "string"],
   "correctIndex": number (0-3),
   "explanation": "concise 2-sentence explanation"

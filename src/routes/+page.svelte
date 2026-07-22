@@ -181,6 +181,7 @@
             type={currentQuestion.type || 'coin'}
             total={currentQuestion.totalOutcomes || 2}
             favorable={currentQuestion.favorableOutcomes || 1}
+            colorCategories={currentQuestion.colorCategories || null}
             {isFlipping}
           />
         </div>
