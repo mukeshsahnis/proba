@@ -76,7 +76,40 @@
         .attr('font-size', '24px')
         .attr('font-weight', 'bold')
         .text('4');
-    } else if (type === 'bag' || type === 'bag_dependent') {
+    } else if (type === 'cards') {
+      const cardW = 48;
+      const cardH = 70;
+      const x = (width - cardW) / 2;
+      const y = (height - cardH) / 2;
+
+      const g = svg.append('g').attr('transform', `translate(${x}, ${y})`);
+
+      g.append('rect')
+        .attr('width', cardW)
+        .attr('height', cardH)
+        .attr('rx', 6)
+        .attr('fill', '#ffffff')
+        .attr('stroke', '#dc2626')
+        .attr('stroke-width', 2);
+
+      g.append('text')
+        .attr('x', cardW / 2)
+        .attr('y', cardH / 2 - 6)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#dc2626')
+        .attr('font-size', '20px')
+        .attr('font-weight', 'bold')
+        .text('K');
+
+      g.append('text')
+        .attr('x', cardW / 2)
+        .attr('y', cardH / 2 + 14)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#dc2626')
+        .attr('font-size', '16px')
+        .text('👑');
+    } else {
+      // Fallback for bag / bag_dependent / custom outcomes
       const itemsPerRow = 5;
       const rows = Math.ceil(safeTotal / itemsPerRow);
 
