@@ -20,7 +20,7 @@
     svg.selectAll('*').remove();
 
     // Cap total displayed elements to avoid overflow in D3 SVG bounds
-    const safeTotal = Math.min(total || 2, 10);
+    const safeTotal = Math.min(total || 2, 16);
     const safeFavorable = Math.min(favorable || 1, safeTotal);
 
     const width = 360;
@@ -111,15 +111,15 @@
         .text('👑');
     } else {
       // Fallback for bag / bag_dependent / custom outcomes
-      const itemsPerRow = 5;
+      const itemsPerRow = safeTotal > 10 ? 6 : 5;
       const rows = Math.ceil(safeTotal / itemsPerRow);
 
-      const marbleRadius = 11;
-      const spacingX = 32;
-      const spacingY = 32;
+      const marbleRadius = safeTotal > 10 ? 9.5 : 11;
+      const spacingX = safeTotal > 10 ? 27 : 32;
+      const spacingY = safeTotal > 10 ? 26 : 32;
 
-      const bagWidth = Math.max(180, Math.min(safeTotal, itemsPerRow) * spacingX + 40);
-      const bagHeight = Math.max(80, rows * spacingY + 30);
+      const bagWidth = Math.max(180, Math.min(safeTotal, itemsPerRow) * spacingX + 34);
+      const bagHeight = Math.max(80, rows * spacingY + 24);
 
       const startX = (width - bagWidth) / 2;
       const startY = (height - bagHeight) / 2;
