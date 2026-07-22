@@ -74,15 +74,17 @@
   }
 </script>
 
-<div class="flex h-screen w-screen flex-col overflow-hidden bg-slate-50 font-sans text-slate-900">
-  <!-- Top Navigation Header (Warm Light Theme) -->
+<div
+  class="flex min-h-screen w-screen flex-col bg-slate-50 font-sans text-slate-900 lg:h-screen lg:overflow-hidden"
+>
+  <!-- Top Navigation Header -->
   <header
-    class="w-full shrink-0 border-b border-amber-900/10 bg-white/80 px-6 py-3 shadow-xs backdrop-blur-md"
+    class="w-full shrink-0 border-b border-amber-900/10 bg-white/80 px-4 py-3 shadow-xs backdrop-blur-md lg:px-6"
   >
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4">
+      <div class="flex items-center gap-2 sm:gap-3">
         <h1
-          class="font-display bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent"
+          class="font-display bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 bg-clip-text text-xl font-extrabold tracking-tight text-transparent sm:text-2xl"
         >
           PROBA
         </h1>
@@ -94,11 +96,11 @@
       </div>
 
       <!-- Level Stepper Navigation -->
-      <div class="flex items-center gap-1.5 overflow-x-auto">
+      <div class="flex scrollbar-none items-center gap-1.5 overflow-x-auto py-0.5">
         {#each LESSON_LEVELS as lvl, idx}
           <button
             onclick={() => selectLevel(idx)}
-            class={`flex cursor-pointer items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-all ${
+            class={`flex cursor-pointer items-center gap-1 rounded-xl px-2.5 py-1.5 text-[11px] font-semibold whitespace-nowrap transition-all sm:gap-1.5 sm:px-3 sm:text-xs ${
               currentLevelIndex === idx
                 ? 'bg-amber-500 font-bold text-slate-950 shadow-sm'
                 : 'border border-amber-200/80 bg-amber-50/80 text-slate-700 hover:bg-amber-100/70'
@@ -112,28 +114,32 @@
     </div>
   </header>
 
-  <!-- Main Single-Viewport Layout (No Scrollbar Required) -->
+  <!-- Main Responsive Layout (Vertical Scroll on Mobile, Single Viewport on Desktop) -->
   <main
-    class="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 gap-6 overflow-hidden p-4 lg:grid-cols-12 lg:p-6"
+    class="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 gap-6 overflow-y-auto p-4 lg:grid-cols-12 lg:overflow-hidden lg:p-6"
   >
     <!-- Left Workbench (7 Cols) -->
-    <section class="flex h-full flex-col justify-between space-y-3 overflow-hidden lg:col-span-7">
+    <section
+      class="flex flex-col justify-between space-y-3 lg:col-span-7 lg:h-full lg:overflow-hidden"
+    >
       <!-- Level & Question Stepper Bar -->
-      <div class="flex shrink-0 items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="text-base">{currentLevel.icon}</span>
-          <h2 class="text-sm font-bold text-slate-800">{currentLevel.name}</h2>
+      <div class="flex shrink-0 items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="text-sm sm:text-base">{currentLevel.icon}</span>
+          <h2 class="line-clamp-1 text-xs font-bold text-slate-800 sm:text-sm">
+            {currentLevel.name}
+          </h2>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <span
-            class="rounded-md border border-amber-300/60 bg-amber-100/80 px-2 py-0.5 font-mono text-xs font-medium text-amber-900"
+            class="rounded-md border border-amber-300/60 bg-amber-100/80 px-2 py-0.5 font-mono text-[11px] font-medium text-amber-900 sm:text-xs"
           >
-            Question {currentQuestionIndex + 1}
+            Q{currentQuestionIndex + 1}
           </span>
           <button
             onclick={loadNextOrGenerate}
             disabled={isGenerating}
-            class="flex cursor-pointer items-center gap-1 rounded-md border border-amber-200 bg-white px-2.5 py-0.5 font-mono text-xs text-slate-700 shadow-xs hover:bg-amber-50 disabled:opacity-50"
+            class="flex cursor-pointer items-center gap-1 rounded-md border border-amber-200 bg-white px-2 py-0.5 font-mono text-[11px] text-slate-700 shadow-xs hover:bg-amber-50 disabled:opacity-50 sm:px-2.5 sm:text-xs"
           >
             <span>✨ AI Generate</span>
           </button>
@@ -152,21 +158,25 @@
       {:else}
         <!-- Problem Statement & Formula -->
         <div
-          class="shrink-0 space-y-2.5 rounded-2xl border border-amber-900/10 bg-white p-4.5 shadow-sm"
+          class="shrink-0 space-y-2.5 rounded-2xl border border-amber-900/10 bg-white p-4 shadow-sm sm:p-4.5"
         >
-          <h3 class="text-sm leading-snug font-semibold text-slate-900 md:text-base">
+          <h3 class="text-xs leading-snug font-semibold text-slate-900 sm:text-sm md:text-base">
             {currentQuestion.prompt}
           </h3>
           <div
-            class="flex items-center justify-between rounded-xl border border-amber-200/60 bg-amber-50/70 px-3.5 py-2"
+            class="flex items-center justify-between overflow-x-auto rounded-xl border border-amber-200/60 bg-amber-50/70 px-3 py-2 sm:px-3.5"
           >
-            <span class="font-mono text-[11px] font-medium text-amber-900">Formula:</span>
+            <span class="mr-2 shrink-0 font-mono text-[11px] font-medium text-amber-900"
+              >Formula:</span
+            >
             <MathView math={currentQuestion.formulaLatex} />
           </div>
         </div>
 
         <!-- D3 Interactive Simulation -->
-        <div class="flex max-h-[200px] min-h-[140px] flex-1 flex-col justify-center">
+        <div
+          class="flex max-h-[200px] min-h-[130px] flex-1 flex-col justify-center sm:min-h-[140px]"
+        >
           <D3Sim
             type={currentQuestion.type || 'coin'}
             total={currentQuestion.totalOutcomes || 2}
@@ -177,12 +187,12 @@
 
         <!-- Multiple Choice Options -->
         <div class="shrink-0 space-y-2">
-          <div class="grid grid-cols-2 gap-2.5">
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2.5">
             {#each currentQuestion.options as opt, idx}
               <button
                 onclick={() => handleSelectOption(idx)}
                 disabled={isAnswerSubmitted}
-                class={`cursor-pointer rounded-xl border p-3 text-left text-xs font-bold transition-all ${
+                class={`cursor-pointer rounded-xl border p-2.5 text-left text-xs font-bold transition-all sm:p-3 ${
                   selectedOption === idx
                     ? isAnswerSubmitted
                       ? idx === currentQuestion.correctIndex
@@ -207,14 +217,14 @@
             <button
               onclick={checkAnswer}
               disabled={selectedOption === null}
-              class="w-full cursor-pointer rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 py-3 text-xs font-extrabold text-slate-950 shadow-md shadow-amber-500/20 transition-all hover:from-amber-400 hover:to-yellow-400 disabled:opacity-40"
+              class="w-full cursor-pointer rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 py-2.5 text-xs font-extrabold text-slate-950 shadow-md shadow-amber-500/20 transition-all hover:from-amber-400 hover:to-yellow-400 disabled:opacity-40 sm:py-3"
             >
               Check Answer
             </button>
           {:else}
             <div class="space-y-2">
               <div
-                class={`rounded-xl border p-3 text-[11px] leading-relaxed ${
+                class={`rounded-xl border p-2.5 text-[11px] leading-relaxed sm:p-3 ${
                   isCorrect
                     ? 'border-emerald-300 bg-emerald-50 text-emerald-900'
                     : 'border-rose-300 bg-rose-50 text-rose-900'
@@ -225,7 +235,7 @@
               </div>
               <button
                 onclick={loadNextOrGenerate}
-                class="w-full cursor-pointer rounded-xl bg-slate-900 py-3 text-xs font-extrabold text-white shadow-md transition-all hover:bg-slate-800"
+                class="w-full cursor-pointer rounded-xl bg-slate-900 py-2.5 text-xs font-extrabold text-white shadow-md transition-all hover:bg-slate-800 sm:py-3"
               >
                 Next Challenge →
               </button>
@@ -235,8 +245,8 @@
       {/if}
     </section>
 
-    <!-- Right Column: AI Agent Assistant Sidebar (5 Cols, Fixed Height Fit) -->
-    <section class="h-full overflow-hidden lg:col-span-5">
+    <!-- Right Column: AI Agent Assistant Sidebar -->
+    <section class="min-h-[380px] sm:min-h-[440px] lg:col-span-5 lg:h-full lg:overflow-hidden">
       <TutorAgent
         topic={currentLevel.name}
         level={currentLevel.badge}
