@@ -141,7 +141,7 @@
           class="flex items-center gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-3.5 py-2 text-xs text-amber-900"
         >
           <span class="h-1.5 w-1.5 animate-ping rounded-full bg-amber-500"></span>
-          <span>Aleph is thinking...</span>
+          <span>Proba is thinking...</span>
         </div>
       </div>
     {/if}
@@ -175,7 +175,7 @@
       <input
         type="text"
         bind:value={customInput}
-        placeholder="Ask Aleph anything about probability..."
+        placeholder="Ask Proba anything about probability..."
         class="flex-1 rounded-xl border border-amber-900/15 bg-white px-3 py-1.5 text-xs text-slate-900 shadow-inner transition-colors focus:border-amber-500 focus:outline-none"
       />
       <button

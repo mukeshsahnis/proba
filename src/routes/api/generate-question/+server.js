@@ -45,7 +45,7 @@ Make it engaging, relatable, and clear.`;
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'HTTP-Referer': 'https://probability-tutor.local',
-        'X-Title': 'Aleph Question Generator',
+        'X-Title': 'Proba Question Generator',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

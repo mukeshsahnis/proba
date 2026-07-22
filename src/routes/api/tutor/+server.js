@@ -58,7 +58,7 @@ Keep your tone warm, enthusiastic, concise, and focused on helping them feel sta
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'HTTP-Referer': 'https://probability-tutor.local',
-        'X-Title': 'Aleph Probability Tutor',
+        'X-Title': 'Proba Probability Tutor',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
