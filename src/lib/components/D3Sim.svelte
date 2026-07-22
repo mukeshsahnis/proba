@@ -109,6 +109,180 @@
         .attr('fill', '#dc2626')
         .attr('font-size', '16px')
         .text('👑');
+    } else if (type === 'tree') {
+      // Tree Diagram Branches for Conditional/Bayes Problems
+      const startX = 50;
+      const startY = height / 2;
+
+      // Root to 2 main branches
+      const branch1Y = 35;
+      const branch2Y = height - 35;
+      const midX = 170;
+      const endX = 300;
+
+      // Branch 1 Lines
+      svg
+        .append('line')
+        .attr('x1', startX)
+        .attr('y1', startY)
+        .attr('x2', midX)
+        .attr('y2', branch1Y)
+        .attr('stroke', '#f59e0b')
+        .attr('stroke-width', 2);
+      svg
+        .append('line')
+        .attr('x1', startX)
+        .attr('y1', startY)
+        .attr('x2', midX)
+        .attr('y2', branch2Y)
+        .attr('stroke', '#3b82f6')
+        .attr('stroke-width', 2);
+
+      // Sub-branches from Branch 1
+      svg
+        .append('line')
+        .attr('x1', midX)
+        .attr('y1', branch1Y)
+        .attr('x2', endX)
+        .attr('y2', branch1Y - 18)
+        .attr('stroke', '#10b981')
+        .attr('stroke-width', 1.5);
+      svg
+        .append('line')
+        .attr('x1', midX)
+        .attr('y1', branch1Y)
+        .attr('x2', endX)
+        .attr('y2', branch1Y + 18)
+        .attr('stroke', '#ef4444')
+        .attr('stroke-width', 1.5);
+
+      // Sub-branches from Branch 2
+      svg
+        .append('line')
+        .attr('x1', midX)
+        .attr('y1', branch2Y)
+        .attr('x2', endX)
+        .attr('y2', branch2Y - 18)
+        .attr('stroke', '#10b981')
+        .attr('stroke-width', 1.5);
+      svg
+        .append('line')
+        .attr('x1', midX)
+        .attr('y1', branch2Y)
+        .attr('x2', endX)
+        .attr('y2', branch2Y + 18)
+        .attr('stroke', '#ef4444')
+        .attr('stroke-width', 1.5);
+
+      // Nodes
+      svg
+        .append('circle')
+        .attr('cx', startX)
+        .attr('cy', startY)
+        .attr('r', 6)
+        .attr('fill', '#d97706');
+      svg
+        .append('circle')
+        .attr('cx', midX)
+        .attr('cy', branch1Y)
+        .attr('r', 10)
+        .attr('fill', '#f59e0b');
+      svg
+        .append('circle')
+        .attr('cx', midX)
+        .attr('cy', branch2Y)
+        .attr('r', 10)
+        .attr('fill', '#3b82f6');
+
+      // Labels
+      svg
+        .append('text')
+        .attr('x', midX)
+        .attr('y', branch1Y - 15)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '11px')
+        .attr('font-weight', 'bold')
+        .attr('fill', '#78350f')
+        .text('Pizza (60%)');
+      svg
+        .append('text')
+        .attr('x', midX)
+        .attr('y', branch2Y + 20)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '11px')
+        .attr('font-weight', 'bold')
+        .attr('fill', '#1e3a8a')
+        .text('Burger (40%)');
+
+      svg
+        .append('text')
+        .attr('x', endX + 25)
+        .attr('y', branch1Y - 14)
+        .attr('text-anchor', 'start')
+        .attr('font-size', '10px')
+        .attr('fill', '#065f46')
+        .text('Soda (70%)');
+      svg
+        .append('text')
+        .attr('x', endX + 25)
+        .attr('y', branch2Y - 14)
+        .attr('text-anchor', 'start')
+        .attr('font-size', '10px')
+        .attr('fill', '#065f46')
+        .text('Soda (50%)');
+    } else if (type === 'venn') {
+      // Venn Diagram for Overlapping Survey Sets
+      const r = 45;
+      const cy = height / 2;
+      const c1x = width / 2 - 25;
+      const c2x = width / 2 + 25;
+
+      svg
+        .append('circle')
+        .attr('cx', c1x)
+        .attr('cy', cy)
+        .attr('r', r)
+        .attr('fill', '#f59e0b')
+        .attr('fill-opacity', '0.45')
+        .attr('stroke', '#d97706')
+        .attr('stroke-width', 2);
+      svg
+        .append('circle')
+        .attr('cx', c2x)
+        .attr('cy', cy)
+        .attr('r', r)
+        .attr('fill', '#3b82f6')
+        .attr('fill-opacity', '0.45')
+        .attr('stroke', '#1d4ed8')
+        .attr('stroke-width', 2);
+
+      svg
+        .append('text')
+        .attr('x', c1x - 20)
+        .attr('y', cy)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .attr('font-weight', 'bold')
+        .attr('fill', '#78350f')
+        .text('Pizza');
+      svg
+        .append('text')
+        .attr('x', c2x + 20)
+        .attr('y', cy)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '12px')
+        .attr('font-weight', 'bold')
+        .attr('fill', '#1e3a8a')
+        .text('Soda');
+      svg
+        .append('text')
+        .attr('x', width / 2)
+        .attr('y', cy + 4)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '11px')
+        .attr('font-weight', 'bold')
+        .attr('fill', '#0f172a')
+        .text('Both');
     } else {
       // Fallback for bag / bag_dependent / custom outcomes
       const itemsPerRow = safeTotal > 10 ? 6 : 5;

@@ -27,7 +27,7 @@ export async function POST({ request }) {
 Output ONLY valid JSON matching this exact schema:
 {
   "prompt": "string statement of the question",
-  "type": "coin" | "coin_multi" | "dice" | "bag" | "bag_dependent" | "cards",
+  "type": "coin" | "coin_multi" | "dice" | "bag" | "bag_dependent" | "cards" | "tree" | "venn",
   "formulaLatex": "LaTeX string showing formula e.g. P(\\\\text{Event}) = \\\\frac{a}{b}",
   "totalOutcomes": number,
   "favorableOutcomes": number,
